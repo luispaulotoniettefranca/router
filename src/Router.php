@@ -1,13 +1,8 @@
 <?php
 
-namespace CoffeeCode\Router;
+namespace Toniette\Router;
 
-/**
- * Class CoffeeCode Router
- *
- * @author Robson V. Leite <https://github.com/robsonvleite>
- * @package CoffeeCode\Router
- */
+
 class Router extends Dispatch
 {
     /**
@@ -69,5 +64,51 @@ class Router extends Dispatch
     public function delete(string $route, $handler, string $name = null): void
     {
         $this->addRoute("DELETE", $route, $handler, $name);
+    }
+
+    /**
+     * @param string $controller
+     * @param array|string[] $protected
+     * @param bool $api
+     */
+    public function resource(string $controller, bool $api = false): void
+    {
+        $routes = [
+            "root" => ["method" => "get", "route" => ""],
+            "index" => ["method" => "get", "route" => "/"],
+            "show" => ["method" => "get", "route" => "/{key}"],
+            "create" => ["method" => "get", "route" => "/create"],
+            "store" => ["method" => "post", "route" => "/"],
+            "edit" => ["method" => "get", "route" => "/{key}/edit"],
+            "update" => ["method" => "patch", "route" => "/{key}/update"],
+            "destroy" => ["method" => "delete", "route" => "/{key}/destroy"]
+        ];
+        if ($api) {
+            unset($routes["create"]);
+            unset($routes["edit"]);
+        } else {
+            $routes["destroy"]["method"] = "get";
+            $routes["update"]["method"] = "post";
+        }
+        $group = $this->group;
+        $this->group(null);
+        foreach ($routes as $key => $value) {
+            $key = $key == "root" ? "index" : $key;
+            $this->{$value["method"]}("/" . $group . "/" . strtolower($controller) . $value["route"], $controller . ":{$key}", $controller . ".{$key}");
+        }
+        $this->group($group);
+    }
+
+    /**
+     * @param  array $methods
+     * @param string $route
+     * @param $handler
+     * @param string|null $name
+     */
+    public function match(array $methods, string $route, $handler, string $name = null): void
+    {
+        foreach($methods as $method) {
+            $this->addRoute(strtoupper($method), $route, $handler, $name);
+        }
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace CoffeeCode\Router;
+namespace Toniette\Router;
 
 trait RouterTrait
 {
     /** @var array */
-    protected $routes;
+    public $routes;
 
     /** @var string */
     protected $patch;
@@ -73,7 +73,7 @@ trait RouterTrait
         }
 
         $route = (!$this->group ? $route : "/{$this->group}{$route}");
-        $data = $this->data;
+        $data = new Request($this->data, $this);
         $namespace = $this->namespace;
         $router = function () use ($method, $handler, $data, $route, $name, $namespace) {
             return [

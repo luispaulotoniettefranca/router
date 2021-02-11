@@ -1,23 +1,14 @@
-# Router @CoffeeCode
-
-[![Maintainer](http://img.shields.io/badge/maintainer-@robsonvleite-blue.svg?style=flat-square)](https://twitter.com/robsonvleite)
-[![Source Code](http://img.shields.io/badge/source-coffeecode/router-blue.svg?style=flat-square)](https://github.com/robsonvleite/router)
-[![PHP from Packagist](https://img.shields.io/packagist/php-v/coffeecode/router.svg?style=flat-square)](https://packagist.org/packages/coffeecode/router)
-[![Latest Version](https://img.shields.io/github/release/robsonvleite/router.svg?style=flat-square)](https://github.com/robsonvleite/router/releases)
-[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
-[![Build](https://img.shields.io/scrutinizer/build/g/robsonvleite/router.svg?style=flat-square)](https://scrutinizer-ci.com/g/robsonvleite/router)
-[![Quality Score](https://img.shields.io/scrutinizer/g/robsonvleite/router.svg?style=flat-square)](https://scrutinizer-ci.com/g/robsonvleite/router)
-[![Total Downloads](https://img.shields.io/packagist/dt/coffeecode/router.svg?style=flat-square)](https://packagist.org/packages/coffeecode/router)
+# Router
 
 ###### Small, simple and uncomplicated. The router is a PHP route components with abstraction for MVC. Prepared with RESTfull verbs (GET, POST, PUT, PATCH and DELETE), works on its own layer in isolation and can be integrated without secrets to your application.
 
-Pequeno, simples e descomplicado. O router é um componentes de rotas PHP com abstração para MVC. Preparado com verbos RESTfull (GET, POST, PUT, PATCH e DELETE), trabalha em sua própria camada de forma isolada e pode ser integrado sem segredos a sua aplicação.
+Pequeno, simples e descomplicado. O router é um componente de rotas PHP com abstração para MVC. Preparado com verbos RESTfull (GET, POST, PUT, PATCH e DELETE), trabalha em sua própria camada de forma isolada e pode ser integrado sem segredos a sua aplicação.
 
-## About CoffeeCode
+## About 
 
-###### CoffeeCode is a set of small and optimized PHP components for common tasks. Held by Robson V. Leite and the UpInside team. With them you perform routine tasks with fewer lines, writing less and doing much more.
+###### A set of small and optimized PHP components for common tasks. Held by Robson V. Leite and the UpInside team. With them you perform routine tasks with fewer lines, writing less and doing much more.
 
-CoffeeCode é um conjunto de pequenos e otimizados componentes PHP para tarefas comuns. Mantido por Robson V. Leite e a equipe UpInside. Com eles você executa tarefas rotineiras com poucas linhas, escrevendo menos e fazendo muito mais.
+Um conjunto de pequenos e otimizados componentes PHP para tarefas comuns. Mantido por Robson V. Leite e a equipe UpInside. Com eles você executa tarefas rotineiras com poucas linhas, escrevendo menos e fazendo muito mais.
 
 ### Highlights
 
@@ -33,13 +24,13 @@ CoffeeCode é um conjunto de pequenos e otimizados componentes PHP para tarefas 
 Router is available via Composer:
 
 ```bash
-"coffeecode/router": "1.0.*"
+"toniette/router": "^1.0"
 ```
 
 or run
 
 ```bash
-composer require coffeecode/router
+composer require toniette/router
 ```
 
 ## Documentation
@@ -48,20 +39,18 @@ composer require coffeecode/router
 
 Para mais detalhes sobre como usar o router, veja a pasta de exemplo com detalhes no diretório do componente. Para usar o router é preciso redirecionar sua navegação para o arquivo raiz de rotas (index.php) onde todo o tráfego deve ser tratado. O exemplo abaixo mostra como:
 
-#### apache
-
 ```apacheconfig
 RewriteEngine On
-#Options All -Indexes
+Options All -Indexes
 
-## ROUTER WWW Redirect.
-#RewriteCond %{HTTP_HOST} !^www\. [NC]
-#RewriteRule ^ https://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# ROUTER WWW Redirect.
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteRule ^ https://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-## ROUTER HTTPS Redirect
-#RewriteCond %{HTTP:X-Forwarded-Proto} !https
-#RewriteCond %{HTTPS} off
-#RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# ROUTER HTTPS Redirect
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 # ROUTER URL Rewrite
 RewriteCond %{SCRIPT_FILENAME} !-f
@@ -69,23 +58,13 @@ RewriteCond %{SCRIPT_FILENAME} !-d
 RewriteRule ^(.*)$ index.php?route=/$1 [L,QSA]
 ```
 
-#### nginx
-
-````nginxconfig
-location / {
-  if ($script_filename !~ "-f"){
-    rewrite ^(.*)$ /index.php?route=/$1 break;
-  }
-}
-````
-
 ##### Routes
 
 ```php
 <?php
 require __DIR__ . "/../vendor/autoload.php";
 
-use CoffeeCode\Router\Router;
+use Toniette\Router\Router;
 
 $router = new Router("https://www.youdomain.com");
 
@@ -137,7 +116,7 @@ if ($router->error()) {
 <?php
 require __DIR__ . "/../vendor/autoload.php";
 
-use CoffeeCode\Router\Router;
+use Toniette\Router\Router;
 
 $router = new Router("https://www.youdomain.com");
 
@@ -277,11 +256,11 @@ Esse exemplo mostra como acessar as rotas (PUT, PATCH, DELETE) a partir da aplic
         <option value="DELETE">DELETE</option>
     </select>
 
-    <input type="text" name="first_name" value="Robson"/>
-    <input type="text" name="last_name" value="Leite"/>
-    <input type="text" name="email" value="cursos@upinside.com.br"/>
+    <input type="text" name="first_name" value="Luis"/>
+    <input type="text" name="last_name" value="Toniette"/>
+    <input type="text" name="email" value="luis_ti@outlook.com"/>
 
-    <button>CoffeeCode</button>
+    <button>Toniette</button>
 </form>
 ```
 
@@ -300,7 +279,7 @@ curl_setopt_array($curl, array(
   CURLOPT_TIMEOUT => 30,
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => "PUT",
-  CURLOPT_POSTFIELDS => "first_name=Robson&last_name=Leite&email=cursos%40upinside.com.br",
+  CURLOPT_POSTFIELDS => "first_name=Luis&last_name=Toniette&email=luis_ti%40outlook.com",
   CURLOPT_HTTPHEADER => array(
     "Cache-Control: no-cache",
     "Content-Type: application/x-www-form-urlencoded"
@@ -321,22 +300,16 @@ if ($err) {
 
 ## Contributing
 
-Please see [CONTRIBUTING](https://github.com/robsonvleite/router/blob/master/CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING](https://github.com/luispaulotoniettefranca/router/blob/master/CONTRIBUTING.md) for details.
 
 ## Support
 
 ###### Security: If you discover any security related issues, please email cursos@upinside.com.br instead of using the issue tracker.
 
-Se você descobrir algum problema relacionado à segurança, envie um e-mail para cursos@upinside.com.br em vez de usar o rastreador de problemas.
+Se você descobrir algum problema relacionado à segurança, envie um e-mail para luis_ti@outlook.com em vez de usar o rastreador de problemas.
 
 Thank you
 
-## Credits
-
-- [Robson V. Leite](https://github.com/robsonvleite) (Developer)
-- [UpInside Treinamentos](https://github.com/upinside) (Team)
-- [All Contributors](https://github.com/robsonvleite/router/contributors) (This Rock)
-
 ## License
 
-The MIT License (MIT). Please see [License File](https://github.com/robsonvleite/router/blob/master/LICENSE) for more information.
+The MIT License (MIT). Please see [License File](https://github.com/luispaulotoniettefranca/router/blob/master/LICENSE) for more information.

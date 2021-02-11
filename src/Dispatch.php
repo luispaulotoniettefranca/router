@@ -1,19 +1,14 @@
 <?php
 
-namespace CoffeeCode\Router;
+namespace Toniette\Router;
 
-/**
- * Class CoffeeCode Dispatch
- *
- * @author Robson V. Leite <https://github.com/robsonvleite>
- * @package CoffeeCode\Router
- */
+
 abstract class Dispatch
 {
     use RouterTrait;
 
     /** @var null|array */
-    protected $route;
+    public $route;
 
     /** @var bool|string */
     protected $projectUrl;
@@ -83,7 +78,7 @@ abstract class Dispatch
      */
     public function group(?string $group): Dispatch
     {
-        $this->group = ($group ? str_replace("/", "", $group) : null);
+        $this->group = $group ?? null;
         return $this;
     }
 
