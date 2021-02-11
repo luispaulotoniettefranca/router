@@ -74,10 +74,11 @@ class Router extends Dispatch
     public function resource(string $controller, bool $api = false): void
     {
         $routes = [
-            "root" => ["method" => "get", "route" => ""],
+            "rootG" => ["method" => "get", "route" => ""],
             "index" => ["method" => "get", "route" => "/"],
             "show" => ["method" => "get", "route" => "/{key}"],
             "create" => ["method" => "get", "route" => "/create"],
+            "rootP" => ["method" => "post", "route" => ""],
             "store" => ["method" => "post", "route" => "/"],
             "edit" => ["method" => "get", "route" => "/{key}/edit"],
             "update" => ["method" => "patch", "route" => "/{key}/update"],
@@ -93,7 +94,8 @@ class Router extends Dispatch
         $group = $this->group;
         $this->group(null);
         foreach ($routes as $key => $value) {
-            $key = $key == "root" ? "index" : $key;
+            $key = $key == "rootG" ? "index" : $key;
+            $key = $key == "rootP" ? "store" : $key;
             $this->{$value["method"]}("/" . $group . "/" . strtolower($controller) . $value["route"], $controller . ":{$key}", $controller . ".{$key}");
         }
         $this->group($group);
