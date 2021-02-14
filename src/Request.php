@@ -29,7 +29,7 @@ class Request
      */
     public function __construct(array $body = [], null|Router $router = null)
     {
-        $this->headers = \getallheaders();
+        $this->headers = getallheaders();
         $this->body = $body;
         $this->router = $router;
     }
