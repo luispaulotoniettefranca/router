@@ -69,6 +69,8 @@ class Request
                 "REQUEST_METHOD" => $_SERVER["REQUEST_METHOD"],
                 "REQUEST_URI" => $_SERVER["REQUEST_URI"],
                 "HTTP_USER_AGENT" => $_SERVER["HTTP_USER_AGENT"],
+                "HEADERS" => getallheaders(),
+                "BODY" => $_REQUEST
         ];
     }
 
