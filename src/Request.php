@@ -44,7 +44,7 @@ class Request
         }
         $this->headers = getallheaders();
         $this->body = $body;
-        $this->router = $router;
+        $this->router = $router->route;
     }
 
     /**
