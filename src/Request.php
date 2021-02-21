@@ -61,6 +61,17 @@ class Request
         $this->body[$name] = $value;
     }
 
+    public function __invoke(): array
+    {
+        return [
+                "REMOTE_ADDR" => $_SERVER["REMOTE_ADDR"],
+                "SERVER_PROTOCOL" => $_SERVER["SERVER_PROTOCOL"],
+                "REQUEST_METHOD" => $_SERVER["REQUEST_METHOD"],
+                "REQUEST_URI" => $_SERVER["REQUEST_URI"],
+                "HTTP_USER_AGENT" => $_SERVER["HTTP_USER_AGENT"],
+        ];
+    }
+
     public function header($index = false): array|bool|string|null
     {
         if ($index) {
